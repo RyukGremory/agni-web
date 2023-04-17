@@ -1,5 +1,5 @@
 import './App.css'
-import { Routes, Route, useParams, Link } from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import Navigation from './components/Navbar'
 import MessagesSearchPage from './pages/MessagesSearchPage'
@@ -10,10 +10,6 @@ import ErrorsPage from './pages/ErrorsPage'
 import HomePage from './pages/HomePage'
 import NotFoundPage from './pages/NotFoundPage'
 
-const MessagesMovil = () => {
-  const { number } = useParams()
-  return <div><h1>Estoy en Mensajes</h1> <h1><Link to='details' className='nav-link'>{number}</Link></h1></div>
-}
 const MessagesDetails = () => {
   return <div><h1>Detalle de Mensajes</h1></div>
 }
