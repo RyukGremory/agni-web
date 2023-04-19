@@ -1,35 +1,47 @@
-import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useState } from 'react'
 import axios from 'axios'
-import { Button } from 'bootstrap'
+
+const getUsers = async (query) => {
+  await axios.get('https://jsonplaceholder.typicode.com/users')
+    .then(res => {
+      return res.data
+    }).catch(err => {
+      console.error(err)
+    })
+}
 
 function SearchComponent () {
-  const [query, setQuery] = useState('')
-
-  const handleInputChange = (event) => {
-    setQuery(event.target.value)
+  function handleOnsummitForm (event) {
+    event.preventDefault()
+    const searcvalue = event.target.search.value
+    const users = getUsers(searcvalue)
+  }
+  function SearchButton (params) {
+    return <button type='submit' name='' class='btn btn-outline-success'>Buscar</button>
   }
 
-  const getUsers = async () => {
-    await axios.get('https://jsonplaceholder.typicode.com/users')
-      .then(res => {
-        setQuery(res.data)
+  function SearchBar () {
+    const [query, setQuery] = useState('')
 
-        return res.data
-      }).catch(err => {
-        console.error(err)
-      })
+    const handleInputChange = (event) => {
+      setQuery(event.target.value)
+    }
+
+    return (
+      <div>
+        <form class='d-flex' onSubmit={e => handleOnsummitForm(e)}>
+          <input placeholder='Search' type='text' name='search' class='mr-2 form-control' value={query} onChange={e => handleInputChange(e)} />
+          <br />
+          <SearchButton />
+        </form>
+      </div>
+    )
   }
 
   return (
     <div>
-      <form>
-        <input typeof='text' name='search' autoComplete='off' onChange={ev => handleInputChange(ev)} />
-        <button>Buscar</button>
-      </form>
-      <div> <p>Resultado de la busqueda: </p>
-        <p>{query}</p>
-      </div>
+      <SearchBar />
+      <p>Resultado de la busqueda: </p>
     </div>
   )
 }
