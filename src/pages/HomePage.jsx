@@ -1,5 +1,5 @@
 function HomePage (params) {
-  return <h3>Estoy en Home</h3>
+  return <h3></h3>
 }
 
 export default HomePage
